@@ -9,6 +9,14 @@ function print_info() {
     echo -e "\e[36mINFO: ${1}\e[m"
 }
 
+# configfile
+if [ -n "${CONFIG_FILE}" ]; then
+    print_info "Setting custom path for mkdocs config yml"
+    export CONFIG_FILE="${GITHUB_WORKSPACE}/${CONFIG_FILE}"
+else
+    export CONFIG_FILE="${GITHUB_WORKSPACE}/mkdocs.yml"
+fi
+
 # install mkdocs
 if [ -n "${REQUIREMENTS}" ] && [ -f "${GITHUB_WORKSPACE}/${REQUIREMENTS}" ]; then
     pip install -r "${GITHUB_WORKSPACE}/${REQUIREMENTS}"
@@ -20,11 +28,7 @@ else
 fi
 
 # build mkdocs pages
-if [ "${FORCE}" = "false" ]; then
-    mkdocs build --config-file "${CONFIG_FILE}"
-else
-    mkdocs build --config-file "${CONFIG_FILE}" --force
-fi
+mkdocs build --config-file "${CONFIG_FILE}"
 
 # install minio/client
 sudo curl -sfo ./mc -L https://dl.min.io/client/mc/release/linux-amd64/mc
@@ -32,4 +36,4 @@ sudo chmod 755 ./mc
 
 # mirror pages to S3 bucket 
 ./mc alias set site ${S3_LOCATION} ${S3_ACCESS_KEY} ${S3_SECRET_KEY}
-./mc mirror --overwrite ${SRC:-sites} "${S3_BUCKET}/${S3_DIR}"
+./mc mirror --overwrite ${DOC_SITE:-sites} "${S3_BUCKET}/${S3_DIR}"
