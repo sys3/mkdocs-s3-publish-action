@@ -36,4 +36,4 @@ sudo chmod 755 ./mc
 
 # mirror pages to S3 bucket 
 ./mc alias set site "${S3_LOCATION}" "${S3_ACCESS_KEY}" "${S3_SECRET_KEY}"
-./mc mirror --overwrite "${DOC_SITE:-sites}" "${S3_BUCKET}/${S3_DIR}"
+./mc mirror --overwrite "${GITHUB_WORKSPACE}/${DOC_SITE:-sites}" "${S3_BUCKET}/${S3_DIR}"
