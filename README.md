@@ -61,7 +61,7 @@ This action can be configured by setting the following `env` varibles
 | **S3_SECRET_KEY** | `none`             | Specify the S3 SECRET_KEY  (mandatory).                                     |
 | **S3_BUCKET**     | `none`             | Specify a S3 bucket (mandatory) where to publish the pages.                 |
 | **BUCKET_DIR**    | `none`             | Specify a directory inside the S3 bucket.                                   |
-| **DOC_SITE**      | `sites`            | Specify a custom directory to save rendered mkdoc pages.                    |
+| **DOC_SITE**      | `site`            | Specify a custom directory to save rendered mkdoc pages.                    |
 | **REQUIREMENTS**  | `requirements.txt` | Specify a custom `requirements.txt` file to use custom Python modules.      |
 | **CONFIG_FILE**   | `mkdocs.yml`       | Custom Mkdocs configuration file relative in your project folder structure. |
 
